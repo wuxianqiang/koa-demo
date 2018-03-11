@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>用户评价</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <style>
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div>
+      <h1>
+        评价管理
+      </h1>
+      <div>
+        <form action="?" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">标题：</label>
+            <input type="text" name="title" id="title" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">描述：</label>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+          <div class="form-group"></div>
+          <label for="src">上传头像</label>
+          <input type="file" name="src" id="src" class="btn">
+        </div>
+      <input type="submit" value="添加" class="btn">
+      </form>
+    </div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>描述</th>
+            <th>头像</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let item of data){ %>
+            <tr>
+              <td>
+                <%= item.ID %>
+              </td>
+              <td>
+                <%= item.title %>
+              </td>
+              <td>
+                <%= item.description %>
+              </td>
+              <td>
+                <img src="/upload/<%= item.src %>" alt="" width="60" height="60">
+                
+              </td>
+              <td>
+                <a href="?act=mod&id=<%= item.ID %>" class="btn btn-primary">修改</a>
+                <a href="?act=del&id=<%= item.ID %>" class="btn btn-warning" onclick="return confirm('你确定删除吗？')">删除</a>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <% if(typeof mod_data != 'undefined'){ %>
+        <form action="?" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="hidden" name="mode_id" value="<%= mod_data.ID %>" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="title">标题：</label>
+            <input type="text" name="title" id="title" value="<%= mod_data.title %>" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">描述：</label>
+            <input type="text" name="description" id="description" value="<%= mod_data.description %>" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="src">头像：</label>            
+            <input type="file" name="src" id="src" value="<%= mod_data.src %>" class="form-control">
+          </div>
+          <input type="submit" value="修改" class="btn">
+        </form>
+        <% } %>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>
